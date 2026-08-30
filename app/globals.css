@@ -1,0 +1,400 @@
+@import 'tailwindcss';
+
+:root { --background: #f8fafc; --foreground: #0f172a; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-geist), Arial, Helvetica, sans-serif; }
+button { font: inherit; }
+
+.guide-card { --accent: #2563eb; --soft: #eff6ff; display: block; width: 100%; border: 1px solid #e2e8f0; border-radius: 1.5rem; background: white; padding: .75rem .75rem 1.25rem; box-shadow: 0 10px 30px rgb(15 23 42 / .05); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; cursor: pointer; }
+.guide-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 38%, white); box-shadow: 0 20px 38px rgb(15 23 42 / .10); }
+.guide-card:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 45%, white); outline-offset: 3px; }
+.guide-card__icon { display: grid; width: 3rem; height: 3rem; flex: none; place-items: center; border-radius: 1rem; background: var(--soft); color: var(--accent); }
+.guide-card--green { --accent: #059669; --soft: #ecfdf5; }
+.guide-card--purple { --accent: #7c3aed; --soft: #f5f3ff; }
+.guide-card--amber { --accent: #d97706; --soft: #fffbeb; }
+.guide-card--cyan { --accent: #0891b2; --soft: #ecfeff; }
+.guide-card--red { --accent: #dc2626; --soft: #fef2f2; }
+
+.hero-grid {
+  background-image:
+    radial-gradient(circle at 9% 12%, rgb(219 234 254 / .75), transparent 27%),
+    radial-gradient(circle at 91% 82%, rgb(209 250 229 / .55), transparent 25%);
+}
+
+.info-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / .82);
+  padding: .48rem .75rem;
+}
+
+.support-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 1.35rem;
+  background: white;
+  padding: 1.35rem;
+  box-shadow: 0 9px 25px rgb(15 23 42 / .04);
+}
+
+.support-card h3 { margin-top: .85rem; font-size: 1.05rem; font-weight: 900; }
+.support-card p { margin-top: .35rem; color: #64748b; font-size: .9rem; line-height: 1.55rem; }
+
+.step-button {
+  display: inline-flex;
+  min-height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  border-radius: .9rem;
+  padding: .7rem 1rem;
+  font-size: .9rem;
+  font-weight: 800;
+  transition: background-color .18s ease, color .18s ease, opacity .18s ease;
+}
+
+.step-button:focus-visible { outline: 3px solid #bfdbfe; outline-offset: 2px; }
+.step-button:disabled { cursor: not-allowed; opacity: .35; }
+.step-button--secondary { border: 1px solid #cbd5e1; background: white; color: #475569; }
+.step-button--secondary:not(:disabled):hover { background: #f8fafc; }
+.step-button--primary { background: #2563eb; color: white; }
+.step-button--primary:hover { background: #1d4ed8; }
+.step-button--done { background: #059669; color: white; }
+.step-button--done:hover { background: #047857; }
+
+.tutorial-highlight {
+  position: absolute;
+  z-index: 5;
+  border: 4px solid #2563eb;
+  border-radius: 1rem;
+  background: rgb(37 99 235 / .08);
+  box-shadow: 0 0 0 5px rgb(255 255 255 / .92), 0 0 0 10px rgb(37 99 235 / .2), 0 12px 35px rgb(37 99 235 / .28);
+  pointer-events: none;
+  animation: tutorial-pulse 1.8s ease-in-out infinite;
+}
+
+.tutorial-label {
+  position: absolute;
+  left: -.35rem;
+  top: -2.45rem;
+  display: inline-flex;
+  min-width: max-content;
+  align-items: center;
+  gap: .35rem;
+  border: 2px solid white;
+  border-radius: .7rem;
+  background: #2563eb;
+  padding: .42rem .65rem;
+  color: white;
+  font-size: clamp(.64rem, 1.2vw, .82rem);
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 5px 18px rgb(37 99 235 / .35);
+}
+
+.tutorial-label::after {
+  content: '';
+  position: absolute;
+  left: 1.1rem;
+  top: 100%;
+  border-left: .45rem solid transparent;
+  border-right: .45rem solid transparent;
+  border-top: .55rem solid #2563eb;
+}
+
+@keyframes tutorial-pulse {
+  0%, 100% { box-shadow: 0 0 0 5px rgb(255 255 255 / .92), 0 0 0 9px rgb(37 99 235 / .17), 0 12px 35px rgb(37 99 235 / .22); }
+  50% { box-shadow: 0 0 0 5px rgb(255 255 255 / .92), 0 0 0 14px rgb(37 99 235 / .28), 0 16px 42px rgb(37 99 235 / .35); }
+}
+
+@media (max-width: 640px) {
+  .tutorial-highlight { border-width: 3px; border-radius: .65rem; box-shadow: 0 0 0 3px rgb(255 255 255 / .92), 0 0 0 7px rgb(37 99 235 / .22); }
+  .tutorial-label { top: -2rem; max-width: 13rem; white-space: normal; font-size: .62rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+/* Tutorial overlays always use the same 16:10 surface as the source captures. */
+.aspect-\[16\/10\].min-h-\[250px\] {
+  min-height: 0 !important;
+}
+/* Precise tutorial annotation calibration (source captures: 2560 × 1600).
+   The selectors intentionally match the percentage geometry emitted by React,
+   so every overlay remains anchored to the image at every viewport width. */
+.tutorial-highlight {
+  border-width: 3px !important;
+  box-shadow:
+    0 0 0 4px rgb(37 99 235 / 0.16),
+    0 8px 18px rgb(37 99 235 / 0.18) !important;
+  animation-duration: 2.4s !important;
+}
+
+.tutorial-label {
+  left: 50% !important;
+  max-width: min(92%, 18rem);
+  white-space: nowrap;
+  text-align: center;
+  transform: translateX(-50%) !important;
+}
+
+/* Home: the six main actions and the activity/history panel. */
+.tutorial-highlight[style*="left: 39%"][style*="top: 18%"][style*="width: 36%"][style*="height: 42%"] {
+  left: 34.65% !important;
+  top: 19.05% !important;
+  width: 32.05% !important;
+  height: 38.65% !important;
+}
+
+.tutorial-highlight[style*="left: 2%"][style*="top: 18%"][style*="width: 36%"][style*="height: 42%"] {
+  left: 1.75% !important;
+  top: 19.05% !important;
+  width: 31.95% !important;
+  height: 38.65% !important;
+}
+
+.tutorial-highlight[style*="left: 2%"][style*="top: 58%"][style*="width: 36%"][style*="height: 9%"] {
+  left: 1.75% !important;
+  top: 59.45% !important;
+  width: 31.95% !important;
+  height: 8.95% !important;
+}
+
+.tutorial-highlight[style*="left: 39%"][style*="top: 58%"][style*="width: 36%"][style*="height: 9%"] {
+  left: 34.65% !important;
+  top: 59.45% !important;
+  width: 32.05% !important;
+  height: 8.95% !important;
+}
+
+.tutorial-highlight[style*="left: 2%"][style*="top: 68%"][style*="width: 36%"][style*="height: 9%"] {
+  left: 1.75% !important;
+  top: 69.65% !important;
+  width: 31.95% !important;
+  height: 8.95% !important;
+}
+
+.tutorial-highlight[style*="left: 39%"][style*="top: 68%"][style*="width: 36%"][style*="height: 9%"] {
+  left: 34.65% !important;
+  top: 69.65% !important;
+  width: 32.05% !important;
+  height: 8.95% !important;
+}
+
+.tutorial-highlight[style*="left: 77%"][style*="top: 17%"][style*="width: 22%"][style*="height: 62%"] {
+  left: 68.35% !important;
+  top: 19.05% !important;
+  width: 29.85% !important;
+  height: 65.75% !important;
+}
+
+.tutorial-highlight[style*="left: 78%"][style*="top: 80%"][style*="width: 20%"][style*="height: 8%"] {
+  left: 69.55% !important;
+  top: 75.15% !important;
+  width: 27.45% !important;
+  height: 7.75% !important;
+}
+
+/* Package and visit registration sidebars. */
+.tutorial-highlight[style*="left: 2.5%"][style*="top: 15%"][style*="width: 20%"][style*="height: 39%"] {
+  left: 3.35% !important;
+  top: 27.95% !important;
+  width: 19.55% !important;
+  height: 42.75% !important;
+}
+
+.tutorial-highlight[style*="left: 2.5%"][style*="top: 16%"][style*="width: 20%"][style*="height: 31%"] {
+  left: 3.35% !important;
+  top: 27.95% !important;
+  width: 19.55% !important;
+  height: 31.75% !important;
+}
+
+/* Department keypad and the following detail forms. */
+.tutorial-highlight[style*="left: 38.5%"][style*="top: 18%"][style*="width: 25%"][style*="height: 64%"] {
+  left: 34.85% !important;
+  top: 20.85% !important;
+  width: 30.25% !important;
+  height: 58.25% !important;
+}
+
+.tutorial-highlight[style*="left: 38.5%"][style*="top: 18%"][style*="width: 28%"][style*="height: 67%"] {
+  left: 34.85% !important;
+  top: 19.65% !important;
+  width: 30.25% !important;
+  height: 60.75% !important;
+}
+
+.tutorial-highlight[style*="left: 40%"][style*="top: 20%"][style*="width: 28%"][style*="height: 61%"] {
+  left: 34.85% !important;
+  top: 27.55% !important;
+  width: 30.25% !important;
+  height: 44.85% !important;
+}
+
+/* Pending cards, delivery action and confirmation dialogs. */
+.tutorial-highlight[style*="left: 22%"][style*="top: 15%"][style*="width: 75%"][style*="height: 28%"] {
+  left: 26.1% !important;
+  top: 22.75% !important;
+  width: 46.55% !important;
+  height: 17.15% !important;
+}
+
+.tutorial-highlight[style*="left: 22%"][style*="top: 15%"][style*="width: 75%"][style*="height: 34%"] {
+  left: 26.1% !important;
+  top: 22.35% !important;
+  width: 72.05% !important;
+  height: 42.95% !important;
+}
+
+.tutorial-highlight[style*="left: 25%"][style*="top: 19%"][style*="width: 13%"][style*="height: 9%"] {
+  left: 27.15% !important;
+  top: 33.25% !important;
+  width: 9.75% !important;
+  height: 4.85% !important;
+}
+
+.tutorial-highlight[style*="left: 38.5%"][style*="top: 25%"][style*="width: 29%"][style*="height: 46%"] {
+  left: 34.85% !important;
+  top: 33.35% !important;
+  width: 30.25% !important;
+  height: 33.25% !important;
+}
+
+.tutorial-highlight[style*="left: 22%"][style*="top: 15%"][style*="width: 75%"][style*="height: 65%"] {
+  left: 26.1% !important;
+  top: 22.35% !important;
+  width: 72.05% !important;
+  height: 42.95% !important;
+}
+
+.tutorial-highlight[style*="left: 23%"][style*="top: 18%"][style*="width: 56%"][style*="height: 18%"] {
+  left: 26.1% !important;
+  top: 22.35% !important;
+  width: 72.05% !important;
+  height: 13.45% !important;
+}
+
+.tutorial-highlight[style*="left: 84%"][style*="top: 18%"][style*="width: 12%"][style*="height: 20%"] {
+  left: 87.95% !important;
+  top: 26.0% !important;
+  width: 8.95% !important;
+  height: 6.15% !important;
+}
+
+/* Messaging and novedades. */
+.tutorial-highlight[style*="left: 1.5%"][style*="top: 10%"][style*="width: 26%"][style*="height: 78%"] {
+  left: 0.05% !important;
+  top: 13.15% !important;
+  width: 24.95% !important;
+  height: 79.75% !important;
+}
+
+.tutorial-highlight[style*="left: 27%"][style*="top: 87%"][style*="width: 70%"][style*="height: 9%"] {
+  left: 25.9% !important;
+  top: 94.15% !important;
+  width: 69.45% !important;
+  height: 4.75% !important;
+}
+
+.tutorial-highlight[style*="left: 20%"][style*="top: 7%"][style*="width: 7%"][style*="height: 8%"] {
+  left: 20.2% !important;
+  top: 7.3% !important;
+  width: 6.6% !important;
+  height: 7.4% !important;
+}
+
+.tutorial-highlight[style*="left: 2%"][style*="top: 20%"][style*="width: 19%"][style*="height: 18%"],
+.tutorial-highlight[style*="left: 2%"][style*="top: 39%"][style*="width: 19%"][style*="height: 21%"] {
+  left: 3.35% !important;
+  width: 21.95% !important;
+}
+
+.tutorial-highlight[style*="left: 2%"][style*="top: 20%"][style*="width: 19%"][style*="height: 18%"] {
+  top: 31.75% !important;
+  height: 9.85% !important;
+}
+
+.tutorial-highlight[style*="left: 2%"][style*="top: 39%"][style*="width: 19%"][style*="height: 21%"] {
+  top: 46.55% !important;
+  height: 19.95% !important;
+}
+
+.tutorial-highlight[style*="left: 3%"][style*="top: 62%"][style*="width: 17%"][style*="height: 9%"] {
+  left: 3.35% !important;
+  top: 68.15% !important;
+  width: 21.95% !important;
+  height: 7.35% !important;
+}
+
+/* “Revisar historial” must show Inicio, where the real button exists.
+   The original step was using novedades.png, so no coordinate could point
+   to the requested control. */
+div:has(> .tutorial-highlight[style*="left: 78%"][style*="top: 80%"][style*="width: 20%"][style*="height: 8%"]) {
+  background-image: url("/manual/inicio.png") !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+}
+
+div:has(> .tutorial-highlight[style*="left: 78%"][style*="top: 80%"][style*="width: 20%"][style*="height: 8%"]) > img {
+  opacity: 0 !important;
+}
+
+/* Shift change and complete history panels. */
+.tutorial-highlight[style*="left: 23%"][style*="top: 16%"][style*="width: 53%"][style*="height: 22%"],
+.tutorial-highlight[style*="left: 23%"][style*="top: 42%"][style*="width: 53%"][style*="height: 23%"],
+.tutorial-highlight[style*="left: 23%"][style*="top: 68%"][style*="width: 53%"][style*="height: 10%"] {
+  left: 23.65% !important;
+  width: 52.65% !important;
+}
+
+.tutorial-highlight[style*="left: 23%"][style*="top: 16%"][style*="width: 53%"][style*="height: 22%"] {
+  top: 28.15% !important;
+  height: 18.75% !important;
+}
+
+.tutorial-highlight[style*="left: 23%"][style*="top: 42%"][style*="width: 53%"][style*="height: 23%"] {
+  top: 49.75% !important;
+  height: 29.15% !important;
+}
+
+.tutorial-highlight[style*="left: 23%"][style*="top: 68%"][style*="width: 53%"][style*="height: 10%"] {
+  top: 81.65% !important;
+  height: 9.25% !important;
+}
+
+.tutorial-highlight[style*="left: 23%"][style*="top: 13%"][style*="width: 74%"][style*="height: 73%"] {
+  left: 23.35% !important;
+  top: 13.4% !important;
+  width: 73.25% !important;
+  height: 72.1% !important;
+}
+
+/* Keep labels legible without covering the selected target. */
+.tutorial-highlight[style*="top: 7%"] .tutorial-label {
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.tutorial-highlight[style*="top: 87%"] .tutorial-label {
+  top: auto !important;
+  bottom: calc(100% + 8px) !important;
+}
+
+@media (max-width: 520px) {
+  .tutorial-highlight {
+    border-width: 2px !important;
+    box-shadow:
+      0 0 0 2px rgb(37 99 235 / 0.16),
+      0 5px 12px rgb(37 99 235 / 0.16) !important;
+  }
+
+  .tutorial-label {
+    max-width: 96%;
+    padding: 4px 7px !important;
+    font-size: 9px !important;
+  }
+}
+@import "tailwindcss";
